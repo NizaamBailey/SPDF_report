@@ -153,11 +153,11 @@ def display_root_cause_count(df_Incidents):
     st.markdown("<h2 style='text-align: center;'> Analysis </h2>", unsafe_allow_html=True)
     rootcause = px.bar(
         data_frame=df_Incidents['Root Cause'].value_counts().sort_values(ascending=False).reset_index(),
-        x='Root Cause',
-        y='index',
-        color='index',
+        x='count',
+        y='Root Cause',
+        color='Root Cause',
         color_discrete_sequence=['rgb(230, 0, 0)', 'rgb(84,87,90)', 'rgb(235,151,0)', 'Black', 'rgb(156,42,160)', 'rgb(168,180,0)', 'rgb(254,203,0)', 'rgb(0,124,146)', 'rgb(0,176,202)', 'rgb(94,39,80)'],
-        labels={'Root Cause': 'Count', 'index': 'Count Root Cause'},
+        labels={'count': 'Count', 'Root Cause': 'Root Cause'},
         title='Number of Incidents Logged by Root Cause',
         orientation='h'
     )
