@@ -151,24 +151,29 @@ def display_incident_report(df_Cust_Info, df_Incidents):
 def display_root_cause_count(df_Incidents):
     st.markdown('---')
     st.markdown("<h2 style='text-align: center;'> Analysis </h2>", unsafe_allow_html=True)
-    rootcause = px.bar(
-        data_frame=df_Incidents['Root Cause'].value_counts().sort_values(ascending=False).reset_index(),
-        x='count',
+    
+    root_cause_counts = df_Incidents['Root Cause'].value_counts().reset_index()
+    root_cause_counts.columns = ['Root Cause', 'Count']
+
+    root_cause_bar = px.bar(
+        data_frame=root_cause_counts,
+        x='Count',
         y='Root Cause',
         color='Root Cause',
         color_discrete_sequence=['rgb(230, 0, 0)', 'rgb(84,87,90)', 'rgb(235,151,0)', 'Black', 'rgb(156,42,160)', 'rgb(168,180,0)', 'rgb(254,203,0)', 'rgb(0,124,146)', 'rgb(0,176,202)', 'rgb(94,39,80)'],
-        labels={'count': 'Count', 'Root Cause': 'Root Cause'},
+        labels={'Count': 'Count', 'Root Cause': 'Root Cause'},
         title='Number of Incidents Logged by Root Cause',
         orientation='h'
     )
 
-    rootcause.update_layout(
+    root_cause_bar.update_layout(
         xaxis=dict(showgrid=False),
         yaxis=dict(showgrid=False),
-        showlegend = False
+        showlegend=False
     )
 
-    st.write(rootcause, use_container_width=True)
+    st.plotly_chart(root_cause_bar, use_container_width=True)
+
     
 def display_time_logged_histogram(df_Incidents):
     
