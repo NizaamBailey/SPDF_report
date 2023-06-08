@@ -144,10 +144,18 @@ def display_incident_report(df_Cust_Info, df_Incidents):
     columns_to_display = ["SR Number", "Site Name", "Root Cause", "SR Type", "Agent Priority", "Time Logged", "Time Resolved", "Resolution", "Source", "Actual Duration(DD:HH:MM:SS)", "Summary"]
     df_Incidents_selected = df_Incidents[columns_to_display]
 
-    # Render the DataFrame as HTML and remove the index column
-    df_html = df_Incidents_selected.style.set_properties(**{'font-size': '11px'}).set_table_styles([{'selector': 'table', 'props': [('display', 'none')]}, {'selector': '.row_heading, .blank', 'props': [('display', 'none')]}]).render()
+    # Styling the DataFrame
+    df_styled = df_Incidents_selected.style.set_properties(**{'font-size': '11px'}).set_table_styles([
+        {'selector': 'table', 'props': [('display', 'none')]},
+        {'selector': '.row_heading, .blank', 'props': [('display', 'none')]}
+    ])
 
+    # Convert the Styler object to HTML
+    df_html = df_styled.render()
+
+    # Display the HTML in Streamlit
     st.write(df_html, unsafe_allow_html=True)
+
 
 
 
