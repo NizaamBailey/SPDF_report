@@ -144,8 +144,9 @@ def display_incident_report(df_Cust_Info, df_Incidents):
     columns_to_display = ["SR Number", "Site Name", "Root Cause", "SR Type", "Agent Priority", "Time Logged", "Time Resolved", "Resolution", "Source", "Actual Duration(DD:HH:MM:SS)", "Summary"]
     df_Incidents_selected = df_Incidents[columns_to_display]
 
-    df_Incidents_styled = df_Incidents_selected.style.set_properties(**{'font-size': '11px'})
-    st.table(df_Incidents_styled)
+    df_html = df_Incidents_selected.style.set_properties(**{'font-size': '11px'}).hide_index().render()
+    st.write(df_html, unsafe_allow_html=True)
+
 
 
 def display_root_cause_count(df_Incidents):
